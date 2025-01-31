@@ -7,7 +7,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const FAQ = require("./models/faqModel");
 const dotenv = require("dotenv");
-const adminAuthMiddleware = require("./middlewares/adminAuth"); // Import your auth middleware
+const adminAuthMiddleware = require("./middlewares/adminAuth"); // Import auth middleware
 dotenv.config();
 const app = express();
 // Middleware

@@ -54,7 +54,7 @@ router.post("/api/faqs", async (req, res) => {
       },
     });
     console.log(newFAQ);
-    res.redirect("/faqs");
+    res.redirect("/api/faqs");
   } catch (error) {
     res.status(500).json({ message: "Error creating FAQ" });
   }
@@ -96,7 +96,7 @@ router.patch("/api/faqs/:id", async (req, res) => {
     if (!faq) {
       return res.status(404).json({ message: "FAQ not found" });
     }
-    res.redirect("/faqs");
+    res.redirect("/api/faqs");
   } catch (error) {
     res.status(500).json({ message: "Error updating FAQ" });
   }
@@ -116,7 +116,7 @@ router.delete("/api/faqs/:id", async (req, res) => {
     if (!faq) {
       return res.status(404).json({ message: "FAQ not found" });
     }
-    res.redirect("/faqs");
+    res.redirect("/api/faqs");
   } catch (error) {
     res.status(500).json({ message: "Error deleting FAQ" });
   }

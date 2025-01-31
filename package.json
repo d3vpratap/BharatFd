@@ -1,0 +1,33 @@
+{
+  "name": "bharatfd",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@adminjs/express": "^6.1.1",
+    "@adminjs/mongoose": "^4.1.0",
+    "@google-cloud/translate": "^8.5.0",
+    "adminjs": "^7.8.15",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "ejs-mate": "^4.0.0",
+    "express": "^4.21.2",
+    "google-translate-api": "^2.3.0",
+    "method-override": "^3.0.0",
+    "mongoose": "^8.9.5",
+    "redis": "^4.7.0"
+  },
+  "devDependencies": {
+    "chai": "^5.1.2",
+    "eslint": "^9.19.0",
+    "mocha": "^11.1.0"
+  }
+}

@@ -1,0 +1,87 @@
+<% layout('layout/boilerplate') -%>
+
+<!-- Add New FAQ Form -->
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10 col-sm-12">
+      <div class="card shadow-lg border-light">
+        <div class="card-header bg-primary text-white text-center">
+          <h3>Add a New FAQ</h3>
+        </div>
+        <div class="card-body">
+          <form action="/faqs" method="POST">
+            <div class="mb-3">
+              <label for="question" class="form-label">Question</label>
+              <input
+                type="text"
+                class="form-control"
+                id="question"
+                name="question"
+                placeholder="Enter your question here"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="answer" class="form-label">Answer</label>
+              <textarea
+                class="form-control"
+                id="answer"
+                name="answer"
+                rows="4"
+                placeholder="Enter the answer here"
+                required
+              ></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Add FAQ</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Display Existing FAQs -->
+<div class="container my-5">
+  <h1 class="text-center mb-4">FAQs</h1>
+
+  <!-- Language Selector -->
+  <div class="mb-4 text-center">
+    <h3 for="languageSelector" class="form-label">Select Language</h3>
+    <div class="btn-group">
+      <a class="btn btn-outline-primary" href="/api/faqs?lang=en">English</a>
+      <a class="btn btn-outline-success" href="/api/faqs?lang=hi">Hindi</a>
+      <a class="btn btn-outline-warning" href="/api/faqs?lang=bn">Bengali</a>
+    </div>
+  </div>
+
+  <!-- FAQs List -->
+  <div class="row d-flex justify-content-center">
+    <% faqs.forEach(faq => { %>
+    <div class="col-lg-6 col-md-8 col-sm-12 mb-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title"><%= faq.question %></h5>
+          <p class="card-text"><%= faq.answer %></p>
+
+          <!-- Update and Delete Buttons -->
+          <div class="d-flex justify-content-between mt-4">
+            <form
+              action="/api/faqs/<%= faq._id %>"
+              style="display: inline-block"
+            >
+              <button type="submit" class="btn btn-warning">Update</button>
+            </form>
+            <form
+              action="/api/faqs/<%= faq._id %>?_method=DELETE"
+              method="POST"
+              style="display: inline-block"
+            >
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+</div>

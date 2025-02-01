@@ -1,0 +1,31 @@
+[
+  {
+    "translatedFaqs": [
+      {
+        "_id": "679dbe2abbc3b42581ef0309",
+        "question": "What is Node.js?",
+        "answer": "A JavaScript runtime."
+      },
+      {
+        "_id": "679dbe2bbbc3b42581ef030c",
+        "question": "What is Node.js?",
+        "answer": "Node.js is a runtime environment for JavaScript."
+      },
+      {
+        "_id": "679dbe63abfd24ceda3a7388",
+        "question": "What is Node.js?",
+        "answer": "A JavaScript runtime."
+      },
+      {
+        "_id": "679dbebcb61ef2a9fd81447a",
+        "question": "What is Node.js?",
+        "answer": "A JavaScript runtime."
+      },
+      {
+        "_id": "679dbffb2a1e6ad6ef8cd62a",
+        "question": "Updating question",
+        "answer": "updated answere as well"
+      }
+    ]
+  }
+]

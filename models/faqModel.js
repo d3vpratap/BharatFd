@@ -14,7 +14,7 @@ const faqSchema = new mongoose.Schema({
   answerTranslations: {
     hi: String,
     bn: String,
-  }
+  },
 });
 faqSchema.methods.getTranslation = function (lang) {
   return this.translations[lang] || this.question; // Fallback to English (default)

@@ -1,11 +1,10 @@
 const adminAuthMiddleware = (req, res, next) => {
-  // Simple authentication check (You can replace this with your own logic)
-  const { email, password } = req.body; // Or check in the session/cookies
+  const { email, password } = req.body;
 
   if (email === "admin@example.com" && password === "admin") {
-    next(); // Allow access if credentials match
+    next();
   } else {
-    res.status(403).send("Access Denied"); // Reject if authentication fails
+    res.status(403).send("Access Denied");
   }
 };
 

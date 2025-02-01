@@ -1,3 +1,4 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -5,10 +6,7 @@ const cors = require("cors");
 const ejsMate = require("ejs-mate");
 const path = require("path");
 const methodOverride = require("method-override");
-const FAQ = require("./models/faqModel");
-const dotenv = require("dotenv");
-const adminAuthMiddleware = require("./middlewares/adminAuth"); // Import auth middleware
-dotenv.config();
+const flash = require("connect-flash");
 const app = express();
 // Middleware
 app.use(express.static(path.join(__dirname, "public")));
@@ -20,11 +18,9 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(methodOverride("_method"));
 // Connect to MongoDB
+const DB_URL = process.env.MONGO_DB_URL;
 mongoose
-  .connect("mongodb://localhost:27017/faq_system", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(DB_URL)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
@@ -33,9 +29,10 @@ const adminRoutes = require("./routes/adminRoutes");
 const faqRoutes = require("./routes/faqRoutes");
 app.use(faqRoutes);
 app.use(adminRoutes);
-
+console.log(process.env.DB_URL);
 // Start server
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+module.exports = app;

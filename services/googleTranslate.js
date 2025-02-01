@@ -1,8 +1,9 @@
 const { TranslationServiceClient } = require("@google-cloud/translate");
-const redis = require('./redis');
+const redis = require("./redis");
 // Initialize the Google Translate client
 const client = new TranslationServiceClient();
-const projectId = "nodetalk-24565";
+const ID = process.env.PROJECT_ID;
+const projectId = ID;
 const location = "global";
 
 // Translate text using Google Cloud Translation API
@@ -22,7 +23,7 @@ const translateText = async (text, targetLanguage) => {
     };
     const [response] = await client.translateText(request);
     const translatedText = response.translations[0].translatedText;
-     redis.setex(cacheKey, 86400, translatedText);
+    redis.setex(cacheKey, 86400, translatedText);
     return translatedText;
   } catch (error) {
     console.error("Error translating text:", error);

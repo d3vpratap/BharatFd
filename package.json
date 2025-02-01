@@ -3,18 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@adminjs/express": "^6.1.1",
-    "@adminjs/mongoose": "^4.1.0",
     "@google-cloud/translate": "^8.5.0",
-    "adminjs": "^7.8.15",
     "body-parser": "^1.20.3",
+    "connect-flash": "^0.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
@@ -24,11 +22,18 @@
     "ioredis": "^5.4.2",
     "method-override": "^3.0.0",
     "mongoose": "^8.9.5",
-    "redis": "^4.7.0"
+    "redis": "^4.7.0",
+    "sinon": "^19.0.2"
   },
   "devDependencies": {
-    "chai": "^5.1.2",
+    "@eslint/js": "^9.19.0",
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
     "eslint": "^9.19.0",
-    "mocha": "^11.1.0"
+    "eslint-plugin-vue": "^9.32.0",
+    "globals": "^15.14.0",
+    "mocha": "^11.1.0",
+    "nyc": "^17.1.0",
+    "supertest": "^7.0.0"
   }
 }

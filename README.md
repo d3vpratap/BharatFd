@@ -41,9 +41,12 @@ curl http://localhost:8000/api/faqs/?lang=bn
 # Fetch  FAQs with Id
 curl http://localhost:8000/api/faqs/:faqid
 
-
-
-
+Using Docker 
+To run the project in a Docker container, follow these steps-
+1.Build the Docker image (`docker build -t bharatfd .`).
+2.Run the Docker container (`docker-compose up`).
+3.Verify that the app is running: Open your browser and go to http://localhost:8000 to check if the app is running.
+4.This will start the backend API, MongoDB, and Redis services as defined in the docker-compose.yml.
 
 
 Contribution Guidelines  

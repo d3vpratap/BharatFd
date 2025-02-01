@@ -95,5 +95,4 @@ Future Improvements
 - Build a modern UI using React for a more interactive user experience.
 
 ---
-
-This version is now formatted and structured professionally, with clear sections and easy-to-follow instructions.
+Thanks to Bharat Fd for providing this opportunity.

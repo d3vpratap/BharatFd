@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    container_name: bharatfd_backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - mongo
+    volumes:
+      - .:/app
+    restart: always
+
+  mongo:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    restart: always
+
+  redis:
+    image: redis:alpine
+    container_name: redis_cache
+    ports:
+      - "6379:6379"
+    restart: always
+
+volumes:
+  mongo_data:

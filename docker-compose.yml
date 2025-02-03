@@ -8,11 +8,14 @@ services:
       - "8000:8000"
     env_file:
       - .env
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/gcloud-credentials.json
     depends_on:
-      - redis
       - mongo
+      - redis
     volumes:
       - .:/app
+      - ./gcloud-credentials/nodetalk-24565-e37341a09bca.json:/app/gcloud-credentials.json:ro
     restart: always
 
   mongo:

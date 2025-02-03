@@ -6,7 +6,6 @@ const cors = require("cors");
 const ejsMate = require("ejs-mate");
 const path = require("path");
 const methodOverride = require("method-override");
-const flash = require("connect-flash");
 const app = express();
 // Middleware
 app.use(express.static(path.join(__dirname, "public")));

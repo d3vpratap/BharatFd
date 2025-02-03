@@ -1,33 +1,62 @@
 const { TranslationServiceClient } = require("@google-cloud/translate");
 const redis = require("./redis");
-// Initialize the Google Translate client
-const client = new TranslationServiceClient();
-const ID = process.env.PROJECT_ID;
-const projectId = ID;
+const client = new TranslationServiceClient({
+  keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS,
+});
+const projectId = process.env.PROJECT_ID;
+if (!projectId) {
+  throw new Error("Missing PROJECT_ID in environment variables.");
+}
 const location = "global";
-
-// Translate text using Google Cloud Translation API
-const translateText = async (text, targetLanguage) => {
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const translateText = async (
+  text,
+  targetLanguage,
+  retries = 3,
+  delayMs = 1000
+) => {
   const cacheKey = `translation:${text}:${targetLanguage}`;
-  const cachedTranslation = await redis.get(cacheKey);
-  if (cachedTranslation) {
-    return cachedTranslation; // Return cached translation
-  }
+
   try {
+    const cachedTranslation = await redis.get(cacheKey);
+    if (cachedTranslation) {
+      return cachedTranslation;
+    }
     const request = {
-      parent: client.locationPath(projectId, location),
+      parent: `projects/${projectId}/locations/${location}`,
       contents: [text],
       mimeType: "text/plain",
-      sourceLanguageCode: "en", // Source language (English)
-      targetLanguageCode: targetLanguage, // Target language code
+      sourceLanguageCode: "en",
+      targetLanguageCode: targetLanguage,
     };
-    const [response] = await client.translateText(request);
-    const translatedText = response.translations[0].translatedText;
-    redis.setex(cacheKey, 86400, translatedText);
-    return translatedText;
+
+    let attempt = 0;
+    while (attempt < retries) {
+      try {
+        const [response] = await client.translateText(request);
+        if (!response.translations || response.translations.length === 0) {
+          throw new Error("Empty response from Google Translate API");
+        }
+        const translatedText = response.translations[0].translatedText;
+        await redis.setex(cacheKey, 86400, translatedText);
+        return translatedText;
+      } catch (error) {
+        if (attempt < retries - 1) {
+          console.warn(
+            `Translate API failed. Retrying (${attempt + 1}/${retries})...`,
+            error.message
+          );
+          await delay(delayMs * 2 ** attempt);
+        } else {
+          console.error("Translation API error after retries:", error.message);
+          return `⚠️ Translation unavailable for: "${text}"`; // Fallback response
+        }
+      }
+      attempt++;
+    }
   } catch (error) {
-    console.error("Error translating text:", error);
-    throw new Error("Translation failed");
+    console.error("Critical error in translateText function:", error.message);
+    return `⚠️ Translation unavailable for: "${text}"`; // Fallback message
   }
 };
 
